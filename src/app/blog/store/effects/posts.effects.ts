@@ -6,13 +6,13 @@ import * as postsActions from '../actions/posts.actions';
 import { map, catchError, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
-import { BlogService } from '../../services/blog.service';
+import { PostsService } from '../../services/posts.service';
 
 
 @Injectable()
 export class PostsEffects {
   constructor(private actions$: Actions,
-    private blogService: BlogService
+    private blogService: PostsService
   ) { }
 
   @Effect()
