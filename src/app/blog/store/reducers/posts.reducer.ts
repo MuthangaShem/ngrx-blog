@@ -57,4 +57,3 @@ export function reducer(
 export const getPostsEntities = (state: PostState) => state.entities;
 export const getPostsLoading = (state: PostState) => state.loading;
 export const getPostsLoaded = (state: PostState) => state.loaded;
-// export const getPostsEntities = (state: PostState) => state.data;
