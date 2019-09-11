@@ -2,15 +2,13 @@ import { Post } from '../../models/post.interface';
 import { PostsActions, PostsActionTypes } from '../actions/posts.actions';
 
 export interface PostState {
-  // entities: { [id: number]: Post }
-  data: Post[]
+  entities: { [id: number]: Post }
   loading: boolean;
   loaded: boolean;
 }
 
 export const initialState: PostState = {
-  // entities: {},
-  data: [],
+  entities: {},
   loading: false,
   loaded: false,
 };
@@ -26,12 +24,22 @@ export function reducer(
       }
     }
     case PostsActionTypes.LOAD_POSTS_SUCCESS: {
-      const data = action.payload;
+      const posts = action.payload;
+
+      const entities = posts.reduce((entities: { [id: number]: Post }, post) => {
+        return {
+          ...entities,
+          [post.id]: post
+        }
+      }, {
+        ...state.entities
+      })
+
       return {
         ...state,
         loading: false,
         loaded: true,
-        data
+        entities
       };
     }
     case PostsActionTypes.LOAD_POSTS_FAIL: {
@@ -46,7 +54,7 @@ export function reducer(
   }
 }
 
-export const getPosts = (state: PostState) => state.data;
+export const getPostsEntities = (state: PostState) => state.entities;
 export const getPostsLoading = (state: PostState) => state.loading;
 export const getPostsLoaded = (state: PostState) => state.loaded;
 // export const getPostsEntities = (state: PostState) => state.data;

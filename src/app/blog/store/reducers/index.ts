@@ -19,7 +19,11 @@ export const getBlogState = createFeatureSelector<BlogState>('blog');
 
 export const getPostState = createSelector(getBlogState, (state: BlogState) => state.posts)
 
-export const getAllPosts = createSelector(getPostState, fromPosts.getPosts);
+export const getAllPostsEntities = createSelector(getPostState, fromPosts.getPostsEntities);
+export const getAllPosts =
+  createSelector(getAllPostsEntities, (entities) => {
+    return Object.keys(entities).map(id => entities[id]);
+  });
 export const getPostsLoading = createSelector(getPostState, fromPosts.getPostsLoading);
 export const getPostsLoaded = createSelector(getPostState, fromPosts.getPostsLoaded);
 
