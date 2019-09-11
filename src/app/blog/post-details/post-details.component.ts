@@ -21,6 +21,7 @@ export class PostDetailsComponent implements OnInit {
     this.store.select(fromStore.getSelectedPost).subscribe(data => {
       this.postDetails = data;
     });
+    this.store.dispatch(new fromStore.LoadComments());
   }
 
 }
