@@ -15,7 +15,8 @@ export class PostsComponent implements OnInit {
   ngOnInit() {
     this.store.select(fromStore.getAllPosts).subscribe(state => {
       console.log(state);
-    })
+    });
+    this.store.dispatch(new fromStore.LoadPosts());
   }
 
 }

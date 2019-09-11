@@ -10,12 +10,7 @@ export interface PostState {
 
 export const initialState: PostState = {
   // entities: {},
-  data: [{
-    "userId": 1,
-    "id": 1,
-    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
-  }],
+  data: [],
   loading: false,
   loaded: false,
 };
@@ -31,20 +26,12 @@ export function reducer(
       }
     }
     case PostsActionTypes.LOAD_POSTS_SUCCESS: {
-      // const posts = action.payload;
-
-      // const entities = posts.reduce((entities: { [id: number]: Post }, article) => {
-      //   return {
-      //     ...entities,
-      //     [article.id]: article
-      //   }
-      // }, {
-      //   ...state.entities
-      // })
+      const data = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
+        data
       };
     }
     case PostsActionTypes.LOAD_POSTS_FAIL: {

@@ -15,7 +15,7 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  getArticles(): Observable<Post[]> {
+  getPosts(): Observable<Post[]> {
     return this.http
       .get<Post[]>(this.ALL_POSTS_URL)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
