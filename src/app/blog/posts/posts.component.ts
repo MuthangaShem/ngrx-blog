@@ -13,7 +13,7 @@ export class PostsComponent implements OnInit {
   constructor(private store: Store<fromStore.BlogState>) { }
 
   ngOnInit() {
-    this.store.select('blog').subscribe(state => {
+    this.store.select(fromStore.getAllPosts).subscribe(state => {
       console.log(state);
     })
   }
