@@ -30,9 +30,11 @@ export class AddPost implements Action {
 }
 export class AddPostSuccess implements Action {
   readonly type = PostsActionTypes.ADD_POST_SUCCESS;
+  constructor(public payload: any) { }
 }
 export class AddPostFail implements Action {
   readonly type = PostsActionTypes.ADD_POST_SUCCESS;
+  constructor(public payload: any) { }
 }
 
 export type PostsActions = LoadPosts | LoadPostsFail | LoadPostsSuccess;
