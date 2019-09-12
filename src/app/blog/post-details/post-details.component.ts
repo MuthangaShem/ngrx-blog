@@ -5,8 +5,6 @@ import * as fromStore from '../store';
 
 import { Post } from './../models/post.interface';
 
-import { Observable } from 'rxjs';
-
 @Component({
   selector: 'app-post-details',
   templateUrl: './post-details.component.html',

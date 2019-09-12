@@ -12,14 +12,14 @@ import { PostsService } from '../../services/posts.service';
 @Injectable()
 export class PostsEffects {
   constructor(private actions$: Actions,
-    private blogService: PostsService
+    private postsService: PostsService
   ) { }
 
   @Effect()
-  loadPosts$ = this.actions$
+  loadComments$ = this.actions$
     .pipe(ofType(postsActions.PostsActionTypes.LOAD_POSTS),
       switchMap(() => {
-        return this.blogService.getPosts()
+        return this.postsService.getPosts()
           .pipe(
             map(posts => new postsActions.LoadPostsSuccess(posts)),
             catchError(error => of(new postsActions.LoadPostsFail(error)))

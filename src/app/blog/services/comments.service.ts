@@ -11,13 +11,14 @@ import { Comment } from '../models/comment.interface';
 })
 export class CommentsService {
 
-  ALL_COMMENTS_URL = 'https://jsonplaceholder.typicode.com/comments';
+  BASE_URL = 'https://jsonplaceholder.typicode.com/';
 
   constructor(private http: HttpClient) { }
 
-  getComments(): Observable<Comment[]> {
+  getComments(postId: number): Observable<Comment[]> {
+    console.log('getComments called!!');
     return this.http
-      .get<Comment[]>(this.ALL_COMMENTS_URL)
+      .get<Comment[]>(`${this.BASE_URL}comments?postId=${postId}`)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 }
