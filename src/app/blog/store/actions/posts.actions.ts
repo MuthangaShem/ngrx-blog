@@ -37,4 +37,4 @@ export class AddPostFail implements Action {
   constructor(public payload: any) { }
 }
 
-export type PostsActions = LoadPosts | LoadPostsFail | LoadPostsSuccess;
+export type PostsActions = LoadPosts | LoadPostsFail | LoadPostsSuccess | AddPost | AddPostSuccess | AddPostFail;

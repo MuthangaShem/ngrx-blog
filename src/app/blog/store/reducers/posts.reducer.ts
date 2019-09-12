@@ -49,6 +49,37 @@ export function reducer(
         loaded: false,
       }
     }
+    case PostsActionTypes.ADD_POST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+    case PostsActionTypes.ADD_POST_SUCCESS: {
+      const post = action.payload;
+
+      const entities = post.reduce((entities: { [id: number]: Post }, post) => {
+        return {
+          ...entities,
+          [post.id]: post
+        }
+      }, {
+        ...state.entities
+      })
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        entities
+      };
+    }
+    case PostsActionTypes.ADD_POST_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+      }
+    }
     default:
       return state;
   }
