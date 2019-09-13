@@ -81,6 +81,28 @@ export function reducer(
         loaded: false,
       }
     }
+    case PostsActionTypes.DELETE_POST: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+      }
+    }
+    case PostsActionTypes.DELETE_POST_SUCCESS: {
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+      };
+    }
+    case PostsActionTypes.DELETE_POST_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+      }
+    }
+
     default:
       return state;
   }

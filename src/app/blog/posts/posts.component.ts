@@ -45,6 +45,7 @@ export class PostsComponent implements OnInit {
 
   deletePost(postId: number) {
     console.log(postId);
+    this.store.dispatch(new fromStore.DeletePost(postId));
   }
 
   setupForms() {

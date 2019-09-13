@@ -48,7 +48,6 @@ export class DeletePost implements Action {
 }
 export class DeletePostSuccess implements Action {
   readonly type = PostsActionTypes.DELETE_POST_SUCCESS;
-  constructor(public payload: any) { }
 }
 export class DeletePostFail implements Action {
   readonly type = PostsActionTypes.DELETE_POST_FAIL;
