@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Post } from '../models/post.interface';
+import { PostDTO } from '../models/postDTO.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,16 +28,12 @@ export class PostsService {
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
-  addPost(body: any = JSON.stringify({
-    title: 'foo',
-    body: 'bar',
-    userId: 1
-  })): Observable<any> {
+  addPost(body: PostDTO): Observable<PostDTO> {
     console.log('add post request!!');
     console.log('body of request: ', body);
     console.log('url of request: ', this.URL);
     return this.http
-      .post<any>(this.URL, body, this.options)
+      .post<PostDTO>(this.URL, body, this.options)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 

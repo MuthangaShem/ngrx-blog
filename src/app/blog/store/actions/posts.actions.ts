@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Post } from '../../models/post.interface';
+import { PostDTO } from '../../models/postDTO.interface';
 
 export enum PostsActionTypes {
   LOAD_POSTS = '[Posts] Load Posts',
@@ -27,10 +28,11 @@ export class LoadPostsFail implements Action {
 
 export class AddPost implements Action {
   readonly type = PostsActionTypes.ADD_POST;
+  constructor(public payload: PostDTO) { }
 }
 export class AddPostSuccess implements Action {
   readonly type = PostsActionTypes.ADD_POST_SUCCESS;
-  constructor(public payload: any[]) { }
+  constructor(public payload: Post[]) { }
 }
 export class AddPostFail implements Action {
   readonly type = PostsActionTypes.ADD_POST_FAIL;

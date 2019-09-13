@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 import { reducers, effects } from './store';
@@ -22,6 +23,7 @@ const routes: Routes = [
   declarations: [PostsComponent, PostDetailsComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('blog', reducers),

@@ -29,8 +29,9 @@ export class PostsEffects {
   @Effect()
   addPost$ = this.actions$
     .pipe(ofType(postsActions.PostsActionTypes.ADD_POST),
-      switchMap(() => {
-        return this.postsService.addPost()
+      switchMap((action) => {
+        console.log(action);
+        return this.postsService.addPost(action['payload'])
           .pipe(
             map(post => new postsActions.AddPostSuccess([post])),
             catchError(error => of(new postsActions.LoadPostsFail(error)))
