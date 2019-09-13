@@ -10,6 +10,10 @@ export enum PostsActionTypes {
   ADD_POST = '[Post] Add Post',
   ADD_POST_SUCCESS = '[Post] Add Post Success',
   ADD_POST_FAIL = '[Post] Add Post Fail',
+
+  DELETE_POST = '[Post] DELETE Post',
+  DELETE_POST_SUCCESS = '[Post] DELETE Post Success',
+  DELETE_POST_FAIL = '[Post] DELETE Post Fail',
 }
 
 export class LoadPosts implements Action {
@@ -38,5 +42,18 @@ export class AddPostFail implements Action {
   readonly type = PostsActionTypes.ADD_POST_FAIL;
   constructor(public payload: any) { }
 }
+export class DeletePost implements Action {
+  readonly type = PostsActionTypes.DELETE_POST;
+  constructor(public payload: number) { }
+}
+export class DeletePostSuccess implements Action {
+  readonly type = PostsActionTypes.DELETE_POST_SUCCESS;
+  constructor(public payload: any) { }
+}
+export class DeletePostFail implements Action {
+  readonly type = PostsActionTypes.DELETE_POST_FAIL;
+  constructor(public payload: any) { }
+}
 
-export type PostsActions = LoadPosts | LoadPostsFail | LoadPostsSuccess | AddPost | AddPostSuccess | AddPostFail;
+export type PostsActions =
+  LoadPosts | LoadPostsFail | LoadPostsSuccess | AddPost | AddPostSuccess | AddPostFail | DeletePost | DeletePostSuccess | DeletePostFail;

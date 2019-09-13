@@ -43,6 +43,9 @@ export class PostsComponent implements OnInit {
     // });
   }
 
+  deletePost(postId: number) {
+    console.log(postId);
+  }
 
   setupForms() {
     this._addPostForm = this.fb.group({
