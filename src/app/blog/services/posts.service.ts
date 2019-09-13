@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -11,13 +11,32 @@ import { Post } from '../models/post.interface';
 })
 export class PostsService {
 
-  ALL_POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
+
+  headers = new HttpHeaders({
+    "Content-type": "application/json; charset=UTF-8"
+  });
+  options = { headers: this.headers };
+
+  URL = 'https://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) { }
 
   getPosts(): Observable<Post[]> {
     return this.http
-      .get<Post[]>(this.ALL_POSTS_URL)
+      .get<Post[]>(this.URL)
+      .pipe(catchError((error: any) => Observable.throw(error.json())));
+  }
+
+  addPost(body: any = JSON.stringify({
+    title: 'foo',
+    body: 'bar',
+    userId: 1
+  })): Observable<any> {
+    console.log('add post request!!');
+    console.log('body of request: ', body);
+    console.log('url of request: ', this.URL);
+    return this.http
+      .post<any>(this.URL, body, this.options)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
