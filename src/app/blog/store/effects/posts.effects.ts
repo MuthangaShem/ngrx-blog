@@ -37,5 +37,18 @@ export class PostsEffects {
             catchError(error => of(new postsActions.LoadPostsFail(error)))
           )
       })
+    );
+
+  @Effect()
+  deletePost$ = this.actions$
+    .pipe(ofType(postsActions.PostsActionTypes.ADD_POST),
+      switchMap((action) => {
+        console.log(action);
+        return this.postsService.deletePost(action['payload'])(action['payload'])
+          .pipe(
+            map(post => new postsActions.AddPostSuccess([post])),
+            catchError(error => of(new postsActions.LoadPostsFail(error)))
+          )
+      })
     )
 }
