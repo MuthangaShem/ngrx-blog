@@ -28,12 +28,18 @@ export class PostsService {
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
-  addPost(body: PostDTO): Observable<PostDTO> {
+  addPost(body: PostDTO): Observable<Post> {
     console.log('add post request!!');
     console.log('body of request: ', body);
     console.log('url of request: ', this.URL);
     return this.http
-      .post<PostDTO>(this.URL, body, this.options)
+      .post<Post>(this.URL, body, this.options)
+      .pipe(catchError((error: any) => Observable.throw(error.json())));
+  }
+
+  deletePost(id: number): Observable<any> {
+    return this.http
+      .delete(`${this.URL}/${id}`, this.options)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
