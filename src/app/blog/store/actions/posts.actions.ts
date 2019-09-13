@@ -30,10 +30,10 @@ export class AddPost implements Action {
 }
 export class AddPostSuccess implements Action {
   readonly type = PostsActionTypes.ADD_POST_SUCCESS;
-  constructor(public payload: any) { }
+  constructor(public payload: any[]) { }
 }
 export class AddPostFail implements Action {
-  readonly type = PostsActionTypes.ADD_POST_SUCCESS;
+  readonly type = PostsActionTypes.ADD_POST_FAIL;
   constructor(public payload: any) { }
 }
 

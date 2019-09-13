@@ -25,4 +25,16 @@ export class PostsEffects {
             catchError(error => of(new postsActions.LoadPostsFail(error)))
           )
       }));
+
+  @Effect()
+  addPost$ = this.actions$
+    .pipe(ofType(postsActions.PostsActionTypes.ADD_POST),
+      switchMap(() => {
+        return this.postsService.addPost()
+          .pipe(
+            map(post => new postsActions.AddPostSuccess([post])),
+            catchError(error => of(new postsActions.LoadPostsFail(error)))
+          )
+      })
+    )
 }

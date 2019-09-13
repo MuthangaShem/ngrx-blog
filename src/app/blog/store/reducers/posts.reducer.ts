@@ -57,6 +57,7 @@ export function reducer(
     }
     case PostsActionTypes.ADD_POST_SUCCESS: {
       const post = action.payload;
+      console.log('Returned payload: ', post);
 
       const entities = post.reduce((entities: { [id: number]: Post }, post) => {
         return {
@@ -73,7 +74,7 @@ export function reducer(
         entities
       };
     }
-    case PostsActionTypes.ADD_POST_SUCCESS: {
+    case PostsActionTypes.ADD_POST_FAIL: {
       return {
         ...state,
         loading: false,
