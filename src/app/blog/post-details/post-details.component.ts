@@ -5,6 +5,8 @@ import * as fromStore from '../store';
 
 import { Post } from './../models/post.interface';
 import { Comment } from './../models/comment.interface';
+import { CommentDTO } from '../models/commentDTO.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post-details',
@@ -15,9 +17,19 @@ export class PostDetailsComponent implements OnInit {
 
   postDetails: Post;
   comments: Comment[];
-  constructor(private store: Store<fromStore.BlogState>) { }
+
+  private _addCommentForm: FormGroup;
+  public get addCommentForm(): FormGroup {
+    return this._addCommentForm;
+  }
+
+  constructor(
+    private store: Store<fromStore.BlogState>,
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit() {
+    this.setupForms();
     this.store.select(fromStore.getSelectedPost).subscribe(postDetails => {
       this.postDetails = postDetails;
     });
@@ -26,5 +38,20 @@ export class PostDetailsComponent implements OnInit {
       this.comments = comments
     })
   }
+
+  addComment() {
+    console.log('new add post action dispatched!');
+    const postObj: CommentDTO = { ...this._addCommentForm.value, userId: null, postId: 100 }
+    console.log(postObj);
+    this.store.dispatch(new fromStore.AddComment(postObj));
+  }
+
+  setupForms() {
+    this._addCommentForm = this.fb.group({
+      name: ['', Validators.required],
+      body: ['', Validators.required],
+    });
+  }
+
 
 }

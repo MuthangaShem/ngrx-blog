@@ -49,6 +49,40 @@ export function reducer(
         loaded: false,
       }
     }
+    case fromComments.CommentsActionTypes.ADD_COMMENT: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+      }
+    }
+    case fromComments.CommentsActionTypes.ADD_COMMENT_SUCCESS: {
+      const comment = action.payload;
+      console.log('Returned payload: ', comment);
+
+      const entities = comment.reduce((entities: { [id: number]: Comment }, post) => {
+        return {
+          ...entities,
+          [post.id]: post
+        }
+      }, {
+        ...state.entities
+      })
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        entities
+      };
+    }
+    case fromComments.CommentsActionTypes.ADD_COMMENT_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+      }
+    }
+
     default:
       return state;
   }

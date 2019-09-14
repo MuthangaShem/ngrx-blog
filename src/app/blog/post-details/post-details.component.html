@@ -1,3 +1,25 @@
+<form [formGroup]="addCommentForm" (ngSubmit)="addComment()">
+  <input
+    type="text"
+    placeholder="Blog Comment Name"
+    formControlName="name"
+    required
+  />
+  <input
+    type="text"
+    placeholder="Comment Content"
+    formControlName="body"
+    required
+  />
+  <button
+    class="button -active"
+    [disabled]="addCommentForm.invalid || addCommentForm.pristine"
+    type="submit"
+  >
+    <i class="fas fa-check mr-1"></i> Add
+  </button>
+</form>
+
 <div>
   <h2>{{ postDetails.title }}</h2>
   <h4>BY: {{ postDetails.userId }}</h4>
@@ -5,9 +27,9 @@
 </div>
 
 <div>
-  <ul *ngFor="let comment of comments"  >
-    <p>{{comment.name}}</p>
-    <p>{{comment.body}}</p>
-    <p>By: {{comment.email}}</p>
+  <ul *ngFor="let comment of comments">
+    <p>{{ comment.name }}</p>
+    <p>{{ comment.body }}</p>
+    <p>By: {{ comment.email }}</p>
   </ul>
 </div>

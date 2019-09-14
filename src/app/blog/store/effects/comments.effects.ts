@@ -1,10 +1,9 @@
-import { getRouterState } from './../../../store/reducers/index';
 import { Injectable } from '@angular/core';
 
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as commentsActions from '../actions/comments.actions';
 
-import { map, catchError, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, catchError, switchMap, withLatestFrom, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { CommentsService } from '../../services/comments.service';
@@ -40,4 +39,27 @@ export class CommentsEffects {
             catchError(error => of(new commentsActions.LoadCommentsFail(error)))
           )
       }));
+
+  @Effect()
+  addComment$ = this.actions$
+    .pipe(ofType(commentsActions.CommentsActionTypes.ADD_COMMENT),
+      // withLatestFrom(
+      //   this.store.select(fromRoot.getRouterState),
+      //   (action, router) => {
+      //     console.log('action: ', action);
+      //     console.log('router: ', router);
+      //     return {
+      //       action
+      //     }
+      //   }
+      // ),
+      switchMap(action => [
+        new commentsActions.AddCommentSuccess([action['payload']])
+      ])
+
+      // switchMap((action) => {
+      //   return this.store.dispatch(new commentsActions.AddCommentSuccess())
+      // })
+    );
+
 }
