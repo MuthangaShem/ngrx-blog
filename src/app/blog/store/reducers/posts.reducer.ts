@@ -1,17 +1,17 @@
 import { Post } from '../../models/post.interface';
 import { PostsActions, PostsActionTypes } from '../actions/posts.actions';
+import { EntityState, createEntityAdapter } from '@ngrx/entity';
 
-export interface PostState {
-  entities: { [id: number]: Post }
+export interface PostState extends EntityState<Post> {
   loading: boolean;
   loaded: boolean;
 }
+export const postAdapter = createEntityAdapter<Post>();
 
-export const initialState: PostState = {
-  entities: {},
+export const initialState: PostState = postAdapter.getInitialState({
   loading: false,
   loaded: false,
-};
+});
 
 export function reducer(
   state = initialState,
@@ -21,26 +21,12 @@ export function reducer(
       return {
         ...state,
         loading: true,
+        loaded: false,
       }
     }
     case PostsActionTypes.LOAD_POSTS_SUCCESS: {
       const posts = action.payload;
-
-      const entities = posts.reduce((entities: { [id: number]: Post }, post) => {
-        return {
-          ...entities,
-          [post.id]: post
-        }
-      }, {
-        ...state.entities
-      })
-
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        entities
-      };
+      return postAdapter.addAll(posts, { ...state, loading: false, loaded: true });
     }
     case PostsActionTypes.LOAD_POSTS_FAIL: {
       return {
@@ -53,26 +39,13 @@ export function reducer(
       return {
         ...state,
         loading: true,
+        loaded: false,
       };
     }
     case PostsActionTypes.ADD_POST_SUCCESS: {
       const post = action.payload;
       console.log('Returned payload: ', post);
-
-      const entities = post.reduce((entities: { [id: number]: Post }, post) => {
-        return {
-          ...entities,
-          [post.id]: post
-        }
-      }, {
-        ...state.entities
-      })
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        entities
-      };
+      return postAdapter.addOne(post, { ...state, loading: false, loaded: true });
     }
     case PostsActionTypes.ADD_POST_FAIL: {
       return {
@@ -89,11 +62,8 @@ export function reducer(
       }
     }
     case PostsActionTypes.DELETE_POST_SUCCESS: {
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-      };
+      const post = action.payload
+      return postAdapter.removeOne(post, { ...state, loading: false, loaded: true });
     }
     case PostsActionTypes.DELETE_POST_FAIL: {
       return {
@@ -108,6 +78,24 @@ export function reducer(
   }
 }
 
-export const getPostsEntities = (state: PostState) => state.entities;
+const {
+  selectIds,
+  selectEntities,
+  selectAll,
+} = postAdapter.getSelectors();
+
+
+export const getPostsEntities = selectEntities;
+
+// export const getPostsEntities = (state: PostState) => state.entities;
 export const getPostsLoading = (state: PostState) => state.loading;
 export const getPostsLoaded = (state: PostState) => state.loaded;
+
+export const getPostIds = selectIds;
+
+// select the dictionary of post entities
+export const getPostEntities = selectEntities;
+
+// select the array of posts
+export const getAllPosts = selectAll;
+

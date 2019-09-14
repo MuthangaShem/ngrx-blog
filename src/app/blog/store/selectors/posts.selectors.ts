@@ -19,9 +19,11 @@ export const getSelectedPost = createSelector(
 );
 
 export const getAllPosts =
-  createSelector(getPostsEntities, (entities) => {
-    return Object.keys(entities).map(id => entities[id]);
-  });
+  createSelector(getPostState, fromPosts.getAllPosts);
 export const getPostsLoading = createSelector(getPostState, fromPosts.getPostsLoading);
 export const getPostsLoaded = createSelector(getPostState, fromPosts.getPostsLoaded);
 
+export const selectPostIds = createSelector(
+  getPostState,
+  fromPosts.getPostIds
+);
