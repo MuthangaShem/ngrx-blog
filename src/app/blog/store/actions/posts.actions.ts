@@ -36,7 +36,7 @@ export class AddPost implements Action {
 }
 export class AddPostSuccess implements Action {
   readonly type = PostsActionTypes.ADD_POST_SUCCESS;
-  constructor(public payload: Post[]) { }
+  constructor(public payload: Post) { }
 }
 export class AddPostFail implements Action {
   readonly type = PostsActionTypes.ADD_POST_FAIL;
@@ -48,6 +48,7 @@ export class DeletePost implements Action {
 }
 export class DeletePostSuccess implements Action {
   readonly type = PostsActionTypes.DELETE_POST_SUCCESS;
+  constructor(public payload: any) { }
 }
 export class DeletePostFail implements Action {
   readonly type = PostsActionTypes.DELETE_POST_FAIL;

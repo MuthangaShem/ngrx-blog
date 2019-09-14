@@ -3,3 +3,11 @@
   <h4>BY: {{ postDetails.userId }}</h4>
   <p>{{ postDetails.body }}</p>
 </div>
+
+<div>
+  <ul *ngFor="let comment of comments"  >
+    <p>{{comment.name}}</p>
+    <p>{{comment.body}}</p>
+    <p>By: {{comment.email}}</p>
+  </ul>
+</div>

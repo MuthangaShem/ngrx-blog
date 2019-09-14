@@ -33,7 +33,7 @@ export class PostsEffects {
         console.log(action);
         return this.postsService.addPost(action['payload'])
           .pipe(
-            map(post => new postsActions.AddPostSuccess([post])),
+            map(post => new postsActions.AddPostSuccess(post)),
             catchError(error => of(new postsActions.LoadPostsFail(error)))
           )
       })
@@ -41,14 +41,14 @@ export class PostsEffects {
 
   @Effect()
   deletePost$ = this.actions$
-    .pipe(ofType(postsActions.PostsActionTypes.ADD_POST),
+    .pipe(ofType(postsActions.PostsActionTypes.DELETE_POST),
       switchMap((action) => {
-        console.log(action);
-        return this.postsService.deletePost(action['payload'])(action['payload'])
+        console.log('action: ', action);
+        return this.postsService.deletePost(action['payload'])
           .pipe(
-            map(post => new postsActions.AddPostSuccess([post])),
+            map(() => new postsActions.DeletePostSuccess(action['payload'])),
             catchError(error => of(new postsActions.LoadPostsFail(error)))
           )
       })
-    )
+    );
 }

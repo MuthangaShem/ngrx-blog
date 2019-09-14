@@ -38,6 +38,7 @@ export class PostsService {
   }
 
   deletePost(id: number): Observable<any> {
+    console.log('url of request: ', `${this.URL}/${id}`);
     return this.http
       .delete(`${this.URL}/${id}`, this.options)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
