@@ -7,6 +7,7 @@ import { Post } from './../models/post.interface';
 import { Comment } from './../models/comment.interface';
 import { CommentDTO } from '../models/commentDTO.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post-details',
@@ -17,6 +18,7 @@ export class PostDetailsComponent implements OnInit {
 
   postDetails: Post;
   comments: Comment[];
+  loginStatus$: Observable<boolean>;
 
   private _addCommentForm: FormGroup;
   public get addCommentForm(): FormGroup {
@@ -29,6 +31,9 @@ export class PostDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.store.select(fromStore.getLoginStatus).subscribe(isLoggedIn => {
+      console.log("Is Logged in? ", isLoggedIn)
+    });
     this.setupForms();
     this.store.select(fromStore.getSelectedPost).subscribe(postDetails => {
       this.postDetails = postDetails;

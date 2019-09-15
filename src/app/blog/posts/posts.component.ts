@@ -7,6 +7,8 @@ import * as fromStore from '../store'
 import { Post } from '../models/post.interface';
 import { PostsService } from '../services/posts.service';
 import { PostDTO } from '../models/postDTO.interface';
+import { User } from '../models/user.interface';
+import { AddCommentFail } from '../store';
 
 @Component({
   selector: 'app-posts',
@@ -16,6 +18,7 @@ import { PostDTO } from '../models/postDTO.interface';
 export class PostsComponent implements OnInit {
 
   posts$: Observable<Post[]>;
+  loginStatus$: Observable<boolean>;
 
   private _addPostForm: FormGroup;
   public get addPostForm(): FormGroup {
@@ -28,6 +31,9 @@ export class PostsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.store.select(fromStore.getLoginStatus).subscribe(isLoggedIn => {
+      console.log("Is Logged in? ", isLoggedIn);
+    });
     this.posts$ = this.store.select(fromStore.getAllPosts);
     this.store.dispatch(new fromStore.LoadPosts());
     this.setupForms();
@@ -46,6 +52,10 @@ export class PostsComponent implements OnInit {
   deletePost(postId: number) {
     console.log(postId);
     this.store.dispatch(new fromStore.DeletePost(postId));
+  }
+
+  login() {
+    this.store.dispatch(new fromStore.Login());
   }
 
   setupForms() {

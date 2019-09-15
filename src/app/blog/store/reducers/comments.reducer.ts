@@ -60,20 +60,20 @@ export function reducer(
       const comment = action.payload;
       console.log('Returned payload: ', comment);
 
-      const entities = comment.reduce((entities: { [id: number]: Comment }, post) => {
-        return {
-          ...entities,
-          [post.id]: post
-        }
-      }, {
-        ...state.entities
-      })
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        entities
-      };
+      // const entities = comment.reduce((entities: { [id: number]: Comment }, post) => {
+      //   return {
+      //     ...entities,
+      //     [post.id]: post
+      //   }
+      // }, {
+      //   ...state.entities
+      // })
+      // return {
+      //   ...state,
+      //   loading: false,
+      //   loaded: true,
+      //   entities
+      // };
     }
     case fromComments.CommentsActionTypes.ADD_COMMENT_FAIL: {
       return {
