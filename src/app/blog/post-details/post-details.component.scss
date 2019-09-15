@@ -1,0 +1,22 @@
+.main-content{
+  padding: 20px 60px;
+}
+
+.centered {
+  position: fixed;
+  top: 38vw;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+}
+
+.example-card {
+  max-width: 35vw;
+}
+
+app-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}

@@ -1,0 +1,50 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span class="menu_icon">
+      <img
+        src="https://ngrx.io/assets/images/badge.svg"
+        alt="ngrx logo"
+        height="45"
+      />
+    </span>
+    <h1>Ngrx Blog</h1>
+    <p style="padding-left:10px">|</p>
+    <a mat-button [routerLink]="'/posts'"> All Articles </a>
+
+    <!-- <span style="font-size: 15px;"
+      >State Management Using Angular using Ngrx/Store</span
+    > -->
+
+    <span class="menu-spacer"></span>
+    <div>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button
+          *ngIf="!adminIsLoggedIn; else adminIsLoggedOut"
+          (click)="login()"
+          mat-menu-item
+        >
+          <mat-icon>person</mat-icon>
+          <span>Login As Admin</span>
+        </button>
+        <ng-template #adminIsLoggedOut>
+          <button (click)="logout()" mat-menu-item>
+            <mat-icon>person</mat-icon>
+            <span>Logout</span>
+          </button>
+        </ng-template>
+        <button mat-menu-item [matMenuTriggerFor]="info">
+          <mat-icon>info</mat-icon>
+          <span>About</span>
+        </button>
+        <mat-menu #info>
+          <p>
+            State Management In Angular using Ngrx/Store
+          </p>
+        </mat-menu>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

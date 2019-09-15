@@ -23,4 +23,11 @@ export class AuthEffects {
       catchError(error => of(new authActions.LoginFail(error))
       ));
 
+  @Effect()
+  logout$ = this.actions$
+    .pipe(ofType(authActions.AuthActionTypes.LOGOUT),
+      map(() => new authActions.LogoutSuccess()),
+      catchError(error => of(new authActions.LoginFail(error))
+      ));
+
 }

@@ -1,24 +1,33 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 
 import { Store } from '@ngrx/store';
-import * as fromStore from '../store'
+import * as fromStore from '../store';
 import { Post } from '../models/post.interface';
-import { PostsService } from '../services/posts.service';
 import { PostDTO } from '../models/postDTO.interface';
-import { User } from '../models/user.interface';
-import { AddCommentFail } from '../store';
+
+const listAnimation = trigger('listAnimation', [
+  transition('* <=> *', [
+    query(':enter',
+      [style({ opacity: 0 }), stagger('300ms', animate('600ms ease-out', style({ opacity: 1 })))],
+      { optional: true }
+    )])
+]);
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss']
+  styleUrls: ['./posts.component.scss'],
+  animations: [listAnimation]
 })
 export class PostsComponent implements OnInit {
 
+  show: boolean = true;
+  isLoading: boolean;
   posts$: Observable<Post[]>;
-  loginStatus$: Observable<boolean>;
+  adminIsLoggedIn: boolean;
 
   private _addPostForm: FormGroup;
   public get addPostForm(): FormGroup {
@@ -26,23 +35,34 @@ export class PostsComponent implements OnInit {
   }
 
   constructor(
-    private store: Store<fromStore.BlogState>, private postsService: PostsService,
+    private store: Store<fromStore.BlogState>,
     private fb: FormBuilder,
   ) { }
 
   ngOnInit() {
     this.store.select(fromStore.getLoginStatus).subscribe(isLoggedIn => {
       console.log("Is Logged in? ", isLoggedIn);
+      this.adminIsLoggedIn = isLoggedIn;
+    });
+    this.store.select(fromStore.getPostsLoading).subscribe(loading => {
+      this.isLoading = loading;
     });
     this.posts$ = this.store.select(fromStore.getAllPosts);
     this.store.dispatch(new fromStore.LoadPosts());
     this.setupForms();
   }
 
-  addPost(event) {
+  addPost() {
     console.log('new add post action dispatched!');
     const postObj: PostDTO = { ...this._addPostForm.value, userId: null }
     this.store.dispatch(new fromStore.AddPost(postObj));
+    this.store.select(fromStore.getPostsLoading).subscribe(loading => {
+      this.isLoading = loading;
+      this._addPostForm.reset();
+    });
+    this.show = !this.show;
+
+
     console.log(postObj);
     // this.postsService.addPost().subscribe(data => {
     //   console.log(data);
@@ -54,8 +74,9 @@ export class PostsComponent implements OnInit {
     this.store.dispatch(new fromStore.DeletePost(postId));
   }
 
-  login() {
-    this.store.dispatch(new fromStore.Login());
+  toggleShow() {
+    this.show = !this.show;
+    console.log(this.show);
   }
 
   setupForms() {
@@ -64,5 +85,6 @@ export class PostsComponent implements OnInit {
       body: ['', Validators.required],
     });
   }
+
 
 }

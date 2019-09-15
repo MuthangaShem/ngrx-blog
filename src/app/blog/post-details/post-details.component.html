@@ -1,3 +1,5 @@
+<app-menu></app-menu>
+
 <form [formGroup]="addCommentForm" (ngSubmit)="addComment()">
   <input
     type="text"
@@ -19,17 +21,36 @@
     <i class="fas fa-check mr-1"></i> Add
   </button>
 </form>
-
-<div>
-  <h2>{{ postDetails.title }}</h2>
-  <h4>BY: {{ postDetails.userId }}</h4>
-  <p>{{ postDetails.body }}</p>
-</div>
-
-<div>
-  <ul *ngFor="let comment of comments">
-    <p>{{ comment.name }}</p>
-    <p>{{ comment.body }}</p>
-    <p>By: {{ comment.email }}</p>
-  </ul>
+<div class="main-content ">
+  <!-- <div>
+    <ul *ngFor="let comment of comments">
+      <p>{{ comment.name }}</p>
+      <p>{{ comment.body }}</p>
+      <p>By: {{ comment.email }}</p>
+    </ul>
+  </div> -->
+  <mat-card class="example-card ">
+    <mat-card-header>
+      <mat-card-title>{{ postDetails.title }}</mat-card-title>
+    </mat-card-header>
+    <img
+      mat-card-image
+      src="https://via.placeholder.com/600/c984bf"
+      alt="placeholder of image"
+    />
+    <mat-card-content>
+      <p>
+        {{ postDetails.body }}
+      </p>
+    </mat-card-content>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+    <mat-card-footer *ngFor="let comment of comments">
+      <p>{{ comment.body }}</p>
+      By: {{ comment.name }}
+    </mat-card-footer>
+  </mat-card>
 </div>

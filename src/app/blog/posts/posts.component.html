@@ -1,6 +1,10 @@
-<button (click)="login()">Login</button>
-
-<form [formGroup]="addPostForm" (ngSubmit)="addPost($event)">
+<app-menu></app-menu>
+<mat-spinner class="centered" *ngIf="isLoading"></mat-spinner>
+<!-- <form
+  [formGroup]="addPostForm"
+  class="form-container"
+  (ngSubmit)="addPost($event)"
+>
   <input
     type="text"
     placeholder="Blog Post Title"
@@ -18,18 +22,89 @@
     [disabled]="addPostForm.invalid || addPostForm.pristine"
     type="submit"
   >
-    <i class="fas fa-check mr-1"></i> Deliver
+    <i class="fas fa-check mr-1"></i> Post
   </button>
-</form>
-<div>
-  <ul
-    style="border: solid 2px black"
+</form> -->
+<div *ngIf="!show" class="form-container ">
+  <form [formGroup]="addPostForm" (ngSubmit)="addPost()">
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Your Title"
+        formControlName="title"
+        required
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        formControlName="body"
+        required
+        matInput
+        matTextareaAutosize
+        matAutosizeMinRows="5"
+        matAutosizeMaxRows="5"
+        placeholder="Your Post Content"
+      ></textarea>
+    </mat-form-field>
+    <button
+      [disabled]="addPostForm.invalid || addPostForm.pristine"
+      type="submit"
+      mat-raised-button
+      color="primary"
+    >
+      Post
+    </button>
+  </form>
+</div>
+
+<button
+  (click)="show = !show"
+  *ngIf="adminIsLoggedIn"
+  mat-fab
+  class="fixed-button"
+>
+  <mat-icon>add</mat-icon>
+</button>
+
+<div
+  *ngIf="show"
+  [@listAnimation]="(posts$ | async).length"
+  class="main-content articles"
+>
+  <mat-card
     *ngFor="let post of (posts$ | async).slice().reverse()"
+    class="example-card"
   >
-    <h3>{{ post.id }}</h3>
-    <li>
-      <a [routerLink]="[post.id]">{{ post.title }}</a>
-    </li>
-    <button (click)="deletePost(post.id)">Delete</button>
-  </ul>
+    <mat-card-header [routerLink]="[post.id]">
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{ post.title }}</mat-card-title>
+      <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    </mat-card-header>
+    <img
+      [routerLink]="[post.id]"
+      mat-card-image
+      src="https://via.placeholder.com/600/c984bf"
+      alt="placeholder"
+    />
+    <mat-card-content [routerLink]="[post.id]">
+      <p>
+        {{ post.body }}
+        <a>{{ post.title }}</a>
+        <button mat-button color="accent">Read More</button>
+      </p>
+    </mat-card-content>
+    <mat-divider *ngIf="adminIsLoggedIn"></mat-divider>
+    <mat-card-actions>
+      <button
+        *ngIf="adminIsLoggedIn"
+        (click)="deletePost(post.id)"
+        mat-raised-button
+        color="warn"
+        mat-button
+      >
+        Delete
+      </button>
+      <button *ngIf="adminIsLoggedIn" mat-button>Edit</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { BlogModule } from './blog/blog.module';
 
 import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    SharedModule,
     AppRoutingModule,
     BlogModule,
     StoreModule.forRoot(reducers, {

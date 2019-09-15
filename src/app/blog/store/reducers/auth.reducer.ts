@@ -37,6 +37,21 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
       };
     }
 
+    case AuthActionTypes.LOGOUT: {
+      return state
+    }
+
+    case AuthActionTypes.LOGOUT_SUCCESS: {
+      return {
+        ...state,
+        isAuthenticated: false,
+        errorMessage: null
+      };
+    }
+
+
+
+
     default: {
       return state;
     }

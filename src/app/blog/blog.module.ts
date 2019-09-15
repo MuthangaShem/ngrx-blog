@@ -12,6 +12,8 @@ import { PostsService } from './services/posts.service';
 import { CommentsService } from './services/comments.service';
 import { PostsComponent } from './posts/posts.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import { SharedModule } from '../shared/shared.module';
+import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'posts', pathMatch: 'full' },
@@ -20,14 +22,15 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PostsComponent, PostDetailsComponent],
+  declarations: [PostsComponent, PostDetailsComponent, MenuComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('blog', reducers),
-    EffectsModule.forFeature(effects)
+    EffectsModule.forFeature(effects),
+    SharedModule
   ],
   providers: [PostsService, CommentsService]
 })

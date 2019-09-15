@@ -1,0 +1,52 @@
+.example-card {
+  max-width: 100%;
+}
+
+.articles{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 45px;
+}
+
+.example-header-image {
+  background-image: url('https://picsum.photos/id/1/5616/3744');
+  background-size: cover;
+}
+
+.main-content{
+  padding: 10vh 60px;
+  background-color: aliceblue;
+}
+
+app-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.fixed-button{
+  position: fixed;
+  right: 2vw;
+  bottom: 3vh;
+  z-index: 2;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin: 22% 0 0 22%;
+}
+
+.form-container form > * {
+  width: 70%;
+}
