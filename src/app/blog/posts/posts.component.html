@@ -90,7 +90,7 @@
       <p>
         {{ post.body }}
         <a>{{ post.title }}</a>
-        <button mat-button color="accent">Read More</button>
+        <button mat-stroked-button color="accent">Read More</button>
       </p>
     </mat-card-content>
     <mat-divider *ngIf="adminIsLoggedIn"></mat-divider>
@@ -104,7 +104,9 @@
       >
         Delete
       </button>
-      <button *ngIf="adminIsLoggedIn" mat-button>Edit</button>
+      <button *ngIf="adminIsLoggedIn" (click)="editPost()" mat-button>
+        Edit
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

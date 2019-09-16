@@ -1,6 +1,6 @@
 <app-menu></app-menu>
 
-<form [formGroup]="addCommentForm" (ngSubmit)="addComment()">
+<!-- <form [formGroup]="addCommentForm" (ngSubmit)="addComment()">
   <input
     type="text"
     placeholder="Blog Comment Name"
@@ -20,17 +20,11 @@
   >
     <i class="fas fa-check mr-1"></i> Add
   </button>
-</form>
-<div class="main-content ">
-  <!-- <div>
-    <ul *ngFor="let comment of comments">
-      <p>{{ comment.name }}</p>
-      <p>{{ comment.body }}</p>
-      <p>By: {{ comment.email }}</p>
-    </ul>
-  </div> -->
-  <mat-card class="example-card ">
+</form> -->
+<div class="main-content">
+  <mat-card class="example-card">
     <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title>{{ postDetails.title }}</mat-card-title>
     </mat-card-header>
     <img
@@ -38,19 +32,29 @@
       src="https://via.placeholder.com/600/c984bf"
       alt="placeholder of image"
     />
-    <mat-card-content>
-      <p>
-        {{ postDetails.body }}
-      </p>
-    </mat-card-content>
-    <div mat-card-avatar class="example-header-image"></div>
     <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
+      {{ postDetails.body }}
     </mat-card-actions>
-    <mat-card-footer *ngFor="let comment of comments">
-      <p>{{ comment.body }}</p>
-      By: {{ comment.name }}
-    </mat-card-footer>
+    <mat-card-actions>
+      <button mat-stroked-button color="primary">
+        Like
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+      <button mat-stroked-button color="primary">
+        Share
+        <mat-icon>share</mat-icon>
+      </button>
+    </mat-card-actions>
+    <mat-card-title>Comments</mat-card-title>
+
+    <div *ngFor="let comment of comments">
+      <mat-card-content>
+        <strong>{{ comment.name }}</strong>
+        <br />
+        {{ comment.body }}
+      </mat-card-content>
+      <mat-divider></mat-divider>
+    </div>
+    <mat-divider></mat-divider>
   </mat-card>
 </div>

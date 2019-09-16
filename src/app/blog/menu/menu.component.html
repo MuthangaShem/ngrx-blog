@@ -11,10 +11,6 @@
     <p style="padding-left:10px">|</p>
     <a mat-button [routerLink]="'/posts'"> All Articles </a>
 
-    <!-- <span style="font-size: 15px;"
-      >State Management Using Angular using Ngrx/Store</span
-    > -->
-
     <span class="menu-spacer"></span>
     <div>
       <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -41,7 +37,16 @@
         </button>
         <mat-menu #info>
           <p>
-            State Management In Angular using Ngrx/Store
+            State Management In Angular using
+            <a target="_blank" href="https://ngrx.io">Ngrx/Store.</a>
+            Data fetched from
+            <a target="_blank" href="https://jsonplaceholder.typicode.com"
+              >Jsonplaceholder</a
+            >
+            and
+            <br />
+            <a href="https://material.angular.io/">Angular Material</a> used for
+            the UI
           </p>
         </mat-menu>
       </mat-menu>

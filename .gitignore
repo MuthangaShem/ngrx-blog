@@ -22,6 +22,7 @@ speed-measure-plugin.json
 *.launch
 .settings/
 *.sublime-workspace
+/.vscode
 
 # IDE - VSCode
 .vscode/*
@@ -44,3 +45,21 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+firebase.json
+
+
+# tslint
+# tslint.json
+.prettierrc.json
+.eslintrc.json
+.prettierrc
+.prettierignore

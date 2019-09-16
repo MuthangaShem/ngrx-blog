@@ -11,7 +11,9 @@ import { PostDTO } from '../models/postDTO.interface';
 const listAnimation = trigger('listAnimation', [
   transition('* <=> *', [
     query(':enter',
-      [style({ opacity: 0 }), stagger('300ms', animate('600ms ease-out', style({ opacity: 1 })))],
+      [style({ opacity: 0 }), stagger('300ms', animate('600ms ease-out', style({ opacity: 1 }))),
+      transition(':leave',
+        [style({ opacity: 1 }), animate('300ms', style({ opacity: 0 }))])],
       { optional: true }
     )])
 ]);
@@ -69,9 +71,16 @@ export class PostsComponent implements OnInit {
     // });
   }
 
+  editPost() {
+    alert('Edit feature will be ready soon. Stay tuned.');
+  }
+
   deletePost(postId: number) {
-    console.log(postId);
-    this.store.dispatch(new fromStore.DeletePost(postId));
+    if (confirm('Are you sure you want to delete this post?')) {
+
+      console.log(postId);
+      this.store.dispatch(new fromStore.DeletePost(postId));
+    }
   }
 
   toggleShow() {
