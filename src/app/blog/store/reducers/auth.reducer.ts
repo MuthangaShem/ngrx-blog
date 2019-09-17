@@ -11,46 +11,41 @@ export interface AuthState {
 
 export const initialState: AuthState = {
   isAuthenticated: false,
-  errorMessage: null
+  errorMessage: null,
 };
-
 
 export function reducer(state = initialState, action: AuthActions): AuthState {
   switch (action.type) {
-
     case AuthActionTypes.LOGIN: {
-      return state
+      return state;
     }
 
     case AuthActionTypes.LOGIN_SUCCESS: {
       return {
         ...state,
         isAuthenticated: true,
-        errorMessage: null
+        errorMessage: null,
       };
     }
 
     case AuthActionTypes.LOGIN_FAIL: {
       return {
         ...state,
-        errorMessage: 'Incorrect email and/or password.'
+        errorMessage: 'Incorrect email and/or password.',
       };
     }
 
     case AuthActionTypes.LOGOUT: {
-      return state
+      return state;
     }
 
     case AuthActionTypes.LOGOUT_SUCCESS: {
       return {
         ...state,
         isAuthenticated: false,
-        errorMessage: null
+        errorMessage: null,
       };
     }
-
-
-
 
     default: {
       return state;

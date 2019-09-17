@@ -3,16 +3,16 @@ import {
   ActionReducerMap,
   createFeatureSelector,
   MetaReducer,
-  createSelector
+  createSelector,
 } from '@ngrx/store';
 import * as fromPosts from './posts.reducer';
 import * as fromComments from './comments.reducer';
 import * as fromAuth from './auth.reducer';
 
 export interface BlogState {
-  posts: fromPosts.PostState,
-  comments: fromComments.CommentState,
-  auth: fromAuth.AuthState
+  posts: fromPosts.PostState;
+  comments: fromComments.CommentState;
+  auth: fromAuth.AuthState;
 }
 
 export const reducers: ActionReducerMap<BlogState> = {
@@ -23,4 +23,6 @@ export const reducers: ActionReducerMap<BlogState> = {
 
 export const getBlogState = createFeatureSelector<BlogState>('blog');
 
-export const metaReducers: MetaReducer<BlogState>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<BlogState>[] = !environment.production
+  ? []
+  : [];

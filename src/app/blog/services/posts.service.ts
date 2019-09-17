@@ -8,19 +8,17 @@ import { Post } from '../models/post.interface';
 import { PostDTO } from '../models/postDTO.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostsService {
-
-
   headers = new HttpHeaders({
-    "Content-type": "application/json; charset=UTF-8"
+    'Content-type': 'application/json; charset=UTF-8',
   });
   options = { headers: this.headers };
 
   URL = 'https://jsonplaceholder.typicode.com/posts';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
     return this.http
@@ -43,5 +41,4 @@ export class PostsService {
       .delete(`${this.URL}/${id}`, this.options)
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
-
 }

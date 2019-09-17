@@ -3,12 +3,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   // { path: '', redirectTo: '', pathMatch: 'full' },
-  { path: '', loadChildren: () => import('./blog/blog.module').then(mod => mod.BlogModule) },
-
+  {
+    path: '',
+    loadChildren: () =>
+      import('./blog/blog.module').then(mod => mod.BlogModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

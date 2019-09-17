@@ -13,27 +13,29 @@ export const initialState: PostState = postAdapter.getInitialState({
   loaded: false,
 });
 
-export function reducer(
-  state = initialState,
-  action: PostsActions): PostState {
+export function reducer(state = initialState, action: PostsActions): PostState {
   switch (action.type) {
     case PostsActionTypes.LOAD_POSTS: {
       return {
         ...state,
         loading: true,
         loaded: false,
-      }
+      };
     }
     case PostsActionTypes.LOAD_POSTS_SUCCESS: {
       const posts = action.payload;
-      return postAdapter.addAll(posts, { ...state, loading: false, loaded: true });
+      return postAdapter.addAll(posts, {
+        ...state,
+        loading: false,
+        loaded: true,
+      });
     }
     case PostsActionTypes.LOAD_POSTS_FAIL: {
       return {
         ...state,
         loading: false,
         loaded: false,
-      }
+      };
     }
     case PostsActionTypes.ADD_POST: {
       return {
@@ -45,32 +47,40 @@ export function reducer(
     case PostsActionTypes.ADD_POST_SUCCESS: {
       const post = action.payload;
       console.log('Returned payload: ', post);
-      return postAdapter.addOne(post, { ...state, loading: false, loaded: true });
+      return postAdapter.addOne(post, {
+        ...state,
+        loading: false,
+        loaded: true,
+      });
     }
     case PostsActionTypes.ADD_POST_FAIL: {
       return {
         ...state,
         loading: false,
         loaded: false,
-      }
+      };
     }
     case PostsActionTypes.DELETE_POST: {
       return {
         ...state,
         loading: true,
         loaded: false,
-      }
+      };
     }
     case PostsActionTypes.DELETE_POST_SUCCESS: {
-      const post = action.payload
-      return postAdapter.removeOne(post, { ...state, loading: false, loaded: true });
+      const post = action.payload;
+      return postAdapter.removeOne(post, {
+        ...state,
+        loading: false,
+        loaded: true,
+      });
     }
     case PostsActionTypes.DELETE_POST_FAIL: {
       return {
         ...state,
         loading: false,
         loaded: false,
-      }
+      };
     }
 
     default:
@@ -78,12 +88,7 @@ export function reducer(
   }
 }
 
-const {
-  selectIds,
-  selectEntities,
-  selectAll,
-} = postAdapter.getSelectors();
-
+const { selectIds, selectEntities, selectAll } = postAdapter.getSelectors();
 
 export const getPostsEntities = selectEntities;
 
@@ -98,4 +103,3 @@ export const getPostEntities = selectEntities;
 
 // select the array of posts
 export const getAllPosts = selectAll;
-

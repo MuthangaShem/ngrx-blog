@@ -1,7 +1,14 @@
 import { Observable } from 'rxjs';
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  query,
+  stagger,
+} from '@angular/animations';
 
 import { Store } from '@ngrx/store';
 import * as fromStore from '../store';
@@ -10,22 +17,28 @@ import { PostDTO } from '../models/postDTO.interface';
 
 const listAnimation = trigger('listAnimation', [
   transition('* <=> *', [
-    query(':enter',
-      [style({ opacity: 0 }), stagger('300ms', animate('600ms ease-out', style({ opacity: 1 }))),
-      transition(':leave',
-        [style({ opacity: 1 }), animate('300ms', style({ opacity: 0 }))])],
-      { optional: true }
-    )])
+    query(
+      ':enter',
+      [
+        style({ opacity: 0 }),
+        stagger('300ms', animate('600ms ease-out', style({ opacity: 1 }))),
+        transition(':leave', [
+          style({ opacity: 1 }),
+          animate('300ms', style({ opacity: 0 })),
+        ]),
+      ],
+      { optional: true },
+    ),
+  ]),
 ]);
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
-  animations: [listAnimation]
+  animations: [listAnimation],
 })
 export class PostsComponent implements OnInit {
-
   show: boolean = true;
   isLoading: boolean;
   posts$: Observable<Post[]>;
@@ -39,11 +52,11 @@ export class PostsComponent implements OnInit {
   constructor(
     private store: Store<fromStore.BlogState>,
     private fb: FormBuilder,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.store.select(fromStore.getLoginStatus).subscribe(isLoggedIn => {
-      console.log("Is Logged in? ", isLoggedIn);
+      console.log('Is Logged in? ', isLoggedIn);
       this.adminIsLoggedIn = isLoggedIn;
     });
     this.store.select(fromStore.getPostsLoading).subscribe(loading => {
@@ -56,14 +69,13 @@ export class PostsComponent implements OnInit {
 
   addPost() {
     console.log('new add post action dispatched!');
-    const postObj: PostDTO = { ...this._addPostForm.value, userId: null }
+    const postObj: PostDTO = { ...this._addPostForm.value, userId: null };
     this.store.dispatch(new fromStore.AddPost(postObj));
     this.store.select(fromStore.getPostsLoading).subscribe(loading => {
       this.isLoading = loading;
       this._addPostForm.reset();
     });
     this.show = !this.show;
-
 
     console.log(postObj);
     // this.postsService.addPost().subscribe(data => {
@@ -77,7 +89,6 @@ export class PostsComponent implements OnInit {
 
   deletePost(postId: number) {
     if (confirm('Are you sure you want to delete this post?')) {
-
       console.log(postId);
       this.store.dispatch(new fromStore.DeletePost(postId));
     }
@@ -94,6 +105,4 @@ export class PostsComponent implements OnInit {
       body: ['', Validators.required],
     });
   }
-
-
 }

@@ -12,10 +12,9 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-post-details',
   templateUrl: './post-details.component.html',
-  styleUrls: ['./post-details.component.scss']
+  styleUrls: ['./post-details.component.scss'],
 })
 export class PostDetailsComponent implements OnInit {
-
   postDetails: Post;
   comments: Comment[];
   loginStatus$: Observable<boolean>;
@@ -28,11 +27,11 @@ export class PostDetailsComponent implements OnInit {
   constructor(
     private store: Store<fromStore.BlogState>,
     private fb: FormBuilder,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.store.select(fromStore.getLoginStatus).subscribe(isLoggedIn => {
-      console.log("Is Logged in? ", isLoggedIn)
+      console.log('Is Logged in? ', isLoggedIn);
     });
     this.setupForms();
     this.store.select(fromStore.getSelectedPost).subscribe(postDetails => {
@@ -40,13 +39,17 @@ export class PostDetailsComponent implements OnInit {
     });
     this.store.dispatch(new fromStore.LoadComments());
     this.store.select(fromStore.getAllComments).subscribe(comments => {
-      this.comments = comments
-    })
+      this.comments = comments;
+    });
   }
 
   addComment() {
     console.log('new add post action dispatched!');
-    const postObj: CommentDTO = { ...this._addCommentForm.value, userId: null, postId: 100 }
+    const postObj: CommentDTO = {
+      ...this._addCommentForm.value,
+      userId: null,
+      postId: 100,
+    };
     console.log(postObj);
     this.store.dispatch(new fromStore.AddComment(postObj));
   }
@@ -57,6 +60,4 @@ export class PostDetailsComponent implements OnInit {
       body: ['', Validators.required],
     });
   }
-
-
 }

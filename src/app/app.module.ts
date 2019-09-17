@@ -12,13 +12,14 @@ import { AppComponent } from './app.component';
 
 import { BlogModule } from './blog/blog.module';
 
-import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer,
+} from '@ngrx/router-store';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -28,17 +29,17 @@ import { SharedModule } from './shared/shared.module';
     StoreModule.forRoot(reducers, {
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: true
-      }
+        strictActionImmutability: true,
+      },
     }),
     StoreRouterConnectingModule,
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
-      maxAge: 10
+      maxAge: 10,
     }),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

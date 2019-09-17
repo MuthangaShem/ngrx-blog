@@ -4,22 +4,17 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../store';
 
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-
   adminIsLoggedIn: boolean;
 
-  constructor(
-    private store: Store<fromStore.BlogState>,
-  ) { }
+  constructor(private store: Store<fromStore.BlogState>) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   login() {
     this.store.dispatch(new fromStore.Login());

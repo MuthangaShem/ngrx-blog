@@ -16,7 +16,7 @@ export class LoginSuccess implements Action {
 }
 export class LoginFail implements Action {
   readonly type = AuthActionTypes.LOGIN_FAIL;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class Logout implements Action {
@@ -26,5 +26,9 @@ export class LogoutSuccess implements Action {
   readonly type = AuthActionTypes.LOGOUT_SUCCESS;
 }
 
-
-export type AuthActions = Login | LoginSuccess | LoginFail | Logout | LogoutSuccess;
+export type AuthActions =
+  | Login
+  | LoginSuccess
+  | LoginFail
+  | Logout
+  | LogoutSuccess;

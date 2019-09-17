@@ -18,26 +18,31 @@ export class LoadComments implements Action {
 
 export class LoadCommentsSuccess implements Action {
   readonly type = CommentsActionTypes.LOAD_COMMENTS_SUCCESS;
-  constructor(public payload: Comment[]) { }
+  constructor(public payload: Comment[]) {}
 }
 
 export class LoadCommentsFail implements Action {
   readonly type = CommentsActionTypes.LOAD_COMMENTS_FAIL;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class AddComment implements Action {
   readonly type = CommentsActionTypes.ADD_COMMENT;
-  constructor(public payload: CommentDTO) { }
+  constructor(public payload: CommentDTO) {}
 }
 export class AddCommentSuccess implements Action {
   readonly type = CommentsActionTypes.ADD_COMMENT_SUCCESS;
-  constructor(public payload: CommentDTO[]) { }
+  constructor(public payload: CommentDTO[]) {}
 }
 export class AddCommentFail implements Action {
   readonly type = CommentsActionTypes.ADD_COMMENT_FAIL;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
-
-export type CommentsActions = LoadComments | LoadCommentsFail | LoadCommentsSuccess | AddComment | AddCommentSuccess | AddCommentFail;
+export type CommentsActions =
+  | LoadComments
+  | LoadCommentsFail
+  | LoadCommentsSuccess
+  | AddComment
+  | AddCommentSuccess
+  | AddCommentFail;

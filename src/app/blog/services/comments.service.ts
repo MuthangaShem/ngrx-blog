@@ -13,13 +13,12 @@ import * as commentsActions from '../store/actions/comments.actions';
 import { CommentDTO } from '../models/commentDTO.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentsService {
-
   BASE_URL = 'https://jsonplaceholder.typicode.com/';
 
-  constructor(private http: HttpClient, private store: Store<BlogState>) { }
+  constructor(private http: HttpClient, private store: Store<BlogState>) {}
 
   getComments(postId: number): Observable<Comment[]> {
     console.log('getComments called!!');
@@ -31,5 +30,4 @@ export class CommentsService {
   addComment(comment: CommentDTO) {
     this.store.dispatch(new commentsActions.AddCommentSuccess([comment]));
   }
-
 }

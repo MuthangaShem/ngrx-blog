@@ -30,8 +30,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     StoreModule.forFeature('blog', reducers),
     EffectsModule.forFeature(effects),
-    SharedModule
+    SharedModule,
   ],
-  providers: [PostsService, CommentsService]
+  providers: [PostsService, CommentsService],
 })
-export class BlogModule { }
+export class BlogModule {}
